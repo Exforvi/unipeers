@@ -1,6 +1,7 @@
 import { View,Text } from "react-native";
 
 export default function Index() {
-return (
-  <View><Text>My self editted code</Text></View>)
+  return (
+  <View><Text>My self editted code</Text></View>
+  )
 }
