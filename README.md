@@ -48,3 +48,58 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+
+# Last Answer 🕹️
+
+**Last Answer** is a fast-response mobile game where multiple players join a game room and compete to stay in the game by quickly answering questions. The last player to answer each question gets eliminated—until only one winner remains!
+
+---
+
+## 📱 Platform
+
+Mobile (Built with React Native + Expo)
+
+---
+
+## 🎯 Target Audience
+
+Designed for players aged 10 and above who enjoy quick reflex and trivia-style games.
+
+---
+
+## ✨ Features
+
+- ✅ **Real-time Multiplayer Rooms**  
+  Join or host a room with friends or random players.
+
+- ✅ **Last-Answer Elimination Mechanism**  
+  The slowest responder to each question is eliminated.
+
+- ✅ **Online & Offline Support**  
+  Play with friends online or test yourself offline.
+
+- ✅ **Cross-Device Sync**  
+  Firebase integration ensures real-time game logic and state sharing across devices.
+
+---
+
+## 🧰 Tech Stack
+
+- **Frontend**: React Native + Expo  
+- **Backend/Realtime**: Firebase (Authentication, Firestore, Realtime Database)  
+- **Hosting**: Firebase Hosting (if applicable for web dashboard or admin)
+
+---
+
+## 🚀 Getting Started
+
+Follow the steps below to run the project locally:
+
+### Prerequisites
+
+- Node.js and npm installed  
+- Expo CLI installed globally:  
+  ```bash
+  npm install -g expo-cli
