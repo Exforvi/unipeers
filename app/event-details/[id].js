@@ -1,9 +1,11 @@
 import { events } from "@/assets/local-data/events";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import {themeColors } from "@/utils/theme.utils";
+import { EventSnippet } from "../../components/EventSnippet";
+
 
 const screenWidth = Dimensions.get("window").width * 0.94;
 
@@ -18,12 +20,30 @@ export default function EventDetails () {
         }
     },[id])
 
+    //covert timestamp to date
+    const convertTimestamp = (stamp) => {
+        const eventDate = new Date(stamp);
+        return String(eventDate)
+    }
+
+    const decideFee = (free,fee) => {
+        let feeText = "";
+        if (free === true) {
+            feeText = "FREE"
+        }else {
+            feeText =`₦${fee}`
+        }
+
+        return feeText;
+    }
+
     if (data !== undefined) {
         return (
             <SafeAreaProvider>
-                <SafeAreaView style={{ flex:1,paddingVertical:16 }}>
+                <SafeAreaView style={{ flex:1,paddingVertical:16,display:"flex", 
+                    justifyContent:"space-between" }}>
                     {/* upper group */}
-                    <View>
+                    <View className="flex gap-y-3">
                         <View className="flex flex-row justify-center">
                             <Image
                             source={{ uri: data.bannerUrl}}
@@ -33,20 +53,42 @@ export default function EventDetails () {
                         </View>
 
                         {/* body area */}
-                        <View className="flex flex-row justify-between gap-x-4">
-                            <View>
-                                <MaterialIcons name="event-note" size={24} color="black" />
-                            </View>
-                            <View>
+                        <View className="flex  justify-between gap-y-2 px-3">
+                            <EventSnippet 
+                            mainTitle={data.time} 
+                            subTitle={data.date}
+                            iconName="event-note"/>
 
+                            <EventSnippet 
+                            mainTitle={data.title} 
+                            subTitle={data.createdBy}
+                            iconName="category"/>
+
+                            <EventSnippet 
+                            mainTitle={decideFee(data.free,data.fee)} 
+                            subTitle={convertTimestamp(data.createdAt)}
+                            iconName="account-balance-wallet"
+
+                            />
+
+                            <EventSnippet 
+                            mainTitle={data.venue} 
+                            subTitle={data.school}
+                            iconName="place"/>
+                             
+                            <View>
+                                <Text style={{color:themeColors.darkGreen, fontWeight: "bold"}}
+                                >Event description</Text>
+                                <Text>{data.desc}</Text>
                             </View>
                         </View>
                     </View>
 
                     {/* bottom group */}
-                    <View>
-                        <TouchableOpacity>
-                            <Text>Save event</Text>
+                    <View className="px-3">
+                        <TouchableOpacity style={{backgroundColor: themeColors.darkGreen}}
+                        className="h-16 flex justify-center items-center rounded-full ">
+                            <Text className="text-3xl text-white ">Save event</Text>
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
