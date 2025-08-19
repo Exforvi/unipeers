@@ -1,7 +1,7 @@
 import { howToCreateEvent } from "@/assets/local-data/how-to-create-events";
 import { themeColors } from "@/utils/theme.utils";
-import { Platform, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from "react-native";
 import { useState } from "react";
+import { Platform, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Create () {
   const [title,setTitle] = useState("");
