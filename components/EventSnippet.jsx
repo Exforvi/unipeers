@@ -1,20 +1,86 @@
-import { View,Text } from "react-native";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import {themeColors } from "@/utils/theme.utils";
+import { useFonts } from "expo-font"
+import { Dimensions, Image,FlatList, StyleSheet, Text, View, Pressable } from "react-native";
+import {Division, Span} from "@/styled/custom-styled-components";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { Link } from "expo-router";
+import Feather from '@expo/vector-icons/Feather';
+import { useState } from "react";
 
 
-export function EventSnippet ({mainTitle,subTitle,iconName}) {
-    return (
-        <View className="w-ful flex flex-row gap-x-8">
-            <MaterialIcons 
-            name={iconName} 
-            size={36}
-            style={{color: themeColors.darkGreen}} />
-            <View>
-                <Text style={{color: themeColors.darkGreen,fontWeight:"bold"}}>{mainTitle}</Text>
-                <Text>{subTitle}</Text>
+const screenwidth = Dimensions.get("window").width;
+
+export function EventSnippet ({data}) {
+  const [expandText,setExpandText] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    "Raleway-Bold": require("../assets/fonts/Raleway-Bold.ttf"),
+    "Raleway-Regular": require("../assets/fonts/Raleway-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+        <View className="flex gap-y-2">
+          <Image
+          style={{
+            width: screenwidth,
+            height:400,
+            resizeMode: "cover"
+          }}
+          source={{ uri: data.bannerUrl}}
+          alt="event photo"
+          />
+          {/* interactions  */}
+          <View className="flex flex-row justify-between items-center px-3">
+            {/* left of interactions*/}
+            <View className="flex flex-row gap-x-3">
+              <View className="flex flex-row items-center gap-x-1">
+                <Ionicons name="heart" size={24} color="black"/>
+                <Span className="font-bold text-xs">57</Span>
+              </View>
+
+              <View className="flex flex-row items-center gap-x-1">
+                <Ionicons name="chatbubble" size={24} color="black"/>
+                <Span className="font-bold text-xs">23</Span>
+              </View>
+
+              {/* right of interactions */}
+              <View className="flex flex-row items-center gap-x-1">
+                <MaterialIcons name="loop" size={24} color="black"/>
+                <Span className="font-bold text-xs">2</Span>
+              </View>
             </View>
+
+            <View className="flex flex-row items-center gap-x-3">
+              <Span>N20,000</Span>
+              <Link href={`/event-details/${data.id}`}>
+                 <Feather name="arrow-up-right" size={24} color="black"/>
+              </Link>
+            </View>
+          </View>
+
+          {/* event post section */}
+          <Pressable onPress={() => setExpandText(!expandText)} className="px-3">
+            {expandText
+            ?
+            <Text style={styles.text}>{data.desc}</Text>
+            :
+            <Text style={styles.text}>{data.desc.slice(0,80)}...</Text>}
+          </Pressable>
         </View>
-    )
+  )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 14,
+    fontFamily: "Raleway-Regular",
+    fontWeight: "bold"
+  }
+})
+
+
 
