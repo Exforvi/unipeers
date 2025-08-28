@@ -23,7 +23,7 @@ export function EventSnippet ({data}) {
   }
 
   return (
-        <View className="flex gap-y-2">
+        <View className="flex gap-y-3">
           <Image
           style={{
             width: screenwidth,
